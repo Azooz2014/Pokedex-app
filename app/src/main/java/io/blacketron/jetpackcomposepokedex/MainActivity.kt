@@ -12,6 +12,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import io.blacketron.jetpackcomposepokedex.ui.theme.JetpackComposePokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
+import io.blacketron.jetpackcomposepokedex.screen.pokemon_list_screen.PokemonListScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable("pokemon_list_screen") {
 
+                        PokemonListScreen(navController = navController)
                     }
 
                     composable(
