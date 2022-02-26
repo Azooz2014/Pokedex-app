@@ -13,6 +13,7 @@ import io.blacketron.jetpackcomposepokedex.data.model.Pokedex
 import io.blacketron.jetpackcomposepokedex.data.repository.PokeRepositroy
 import io.blacketron.jetpackcomposepokedex.util.Constants.PAGE_LIMIT
 import io.blacketron.jetpackcomposepokedex.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +24,8 @@ class PokemonListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var curPage = 0
+    private var cachedPokemonList = listOf<Pokedex>()
+    private var isSearchStarting = true
 
     var pokemonList = mutableStateOf<List<Pokedex>>(listOf())
 
@@ -31,6 +34,8 @@ class PokemonListViewModel @Inject constructor(
     var isLoading = mutableStateOf(false)
 
     var endReached = mutableStateOf(false)
+
+    var isSearching = mutableStateOf(false)
 
     init {
         loadPokemonPaginated()
@@ -85,6 +90,34 @@ class PokemonListViewModel @Inject constructor(
             palette?.dominantSwatch?.rgb?.let { colorValue ->
                 onFinish(Color(colorValue))
             }
+        }
+    }
+
+    fun searchPokemonList(query: String){
+        val listToSearch = if(isSearchStarting){
+            pokemonList.value
+        }else{
+            cachedPokemonList
+        }
+
+        viewModelScope.launch(Dispatchers.Default) {
+            if(query.isEmpty()){
+                pokemonList.value = cachedPokemonList
+                isSearching.value = false
+                isSearchStarting = true
+                return@launch
+            }
+            val results = listToSearch.filter {
+                it.pokemonName.contains(query.trim(), ignoreCase = true) ||
+                        it.pokemonNumber.toString() == query.trim()
+            }
+
+            if(isSearchStarting){
+                cachedPokemonList = pokemonList.value
+                isSearchStarting = false
+            }
+            pokemonList.value = results
+            isSearching.value = true
         }
     }
 }

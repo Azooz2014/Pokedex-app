@@ -1,6 +1,11 @@
 package io.blacketron.jetpackcomposepokedex.data.remote.response
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationVi(
+    @SerializedName("omegaruby-alphasapphire")
     val omegarubyAlphasapphire: OmegarubyAlphasapphire,
-    val xy: XY
+    @SerializedName("x-y")
+    val xY: XY
 )

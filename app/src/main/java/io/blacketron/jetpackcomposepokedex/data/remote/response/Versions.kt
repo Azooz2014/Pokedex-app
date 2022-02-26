@@ -1,12 +1,23 @@
 package io.blacketron.jetpackcomposepokedex.data.remote.response
 
+
+import com.google.gson.annotations.SerializedName
+
 data class Versions(
+    @SerializedName("generation-i")
     val generationI: GenerationI,
-    val generationII: GenerationIi,
-    val generationIII: GenerationIii,
-    val generationIV: GenerationIv,
+    @SerializedName("generation-ii")
+    val generationIi: GenerationIi,
+    @SerializedName("generation-iii")
+    val generationIii: GenerationIii,
+    @SerializedName("generation-iv")
+    val generationIv: GenerationIv,
+    @SerializedName("generation-v")
     val generationV: GenerationV,
-    val generationVI: GenerationVi,
-    val generationVII: GenerationVii,
-    val generationVIII: GenerationViii
+    @SerializedName("generation-vi")
+    val generationVi: GenerationVi,
+    @SerializedName("generation-vii")
+    val generationVii: GenerationVii,
+    @SerializedName("generation-viii")
+    val generationViii: GenerationViii
 )

@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,10 +37,12 @@ import com.google.accompanist.coil.CoilImage
 import io.blacketron.jetpackcomposepokedex.R
 import io.blacketron.jetpackcomposepokedex.data.model.Pokedex
 import io.blacketron.jetpackcomposepokedex.ui.theme.RobotoCondensed
+import java.util.*
 
 @Composable
 fun PokemonListScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: PokemonListViewModel = hiltNavGraphViewModel()
 ){
     Surface(
         color = MaterialTheme.colors.background,
@@ -62,6 +65,7 @@ fun PokemonListScreen(
                     .padding(16.dp)
             ){
                 // Search something.
+                viewModel.searchPokemonList(it)
             }
             Spacer(modifier = Modifier.height(16.dp))
             PokemonList(navController = navController)
@@ -98,7 +102,7 @@ fun SearchBar(
                 .background(Color.White, CircleShape)
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged {
-                    isHintDisplayed = it != FocusState.Active
+                    isHintDisplayed = it != FocusState.Active && text.isEmpty()
                 }
         )
         if(isHintDisplayed){
@@ -121,6 +125,7 @@ fun PokemonList(
     val endReached by remember{viewModel.endReached}
     val loadError by remember{viewModel.loadError}
     val isLoading by remember{viewModel.isLoading}
+    val isSearching by remember{viewModel.isSearching}
 
     LazyColumn(contentPadding = PaddingValues(16.dp)){
 
@@ -136,7 +141,7 @@ fun PokemonList(
 
             /*Checking if user reached to the bottom of the list.
             * if true the load new pokemons*/
-            if(index >= itemCount - 1 && !endReached){
+            if(index >= itemCount - 1 && !endReached && !isLoading && !isSearching){
                 viewModel.loadPokemonPaginated()
             }
 
@@ -189,7 +194,7 @@ fun PokedexCard(
             )
             .clickable {
                 navController.navigate(
-                    "pokemon_list_screen/${dominantColor.toArgb()}/${data.pokemonName}"
+                    "pokemon_details_screen/${dominantColor.toArgb()}/${data.pokemonName}"
                 )
             }
     ) {
@@ -217,7 +222,7 @@ fun PokedexCard(
                 )
             }
             Text(
-                text = data.pokemonName,
+                text = data.pokemonName.capitalize(Locale.ROOT),
                 fontFamily = RobotoCondensed,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,

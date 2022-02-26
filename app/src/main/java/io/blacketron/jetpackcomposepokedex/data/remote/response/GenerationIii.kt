@@ -1,7 +1,12 @@
 package io.blacketron.jetpackcomposepokedex.data.remote.response
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationIii(
     val emerald: Emerald,
-    val fireredLeafGreen: FireredLeafgreen,
+    @SerializedName("firered-leafgreen")
+    val fireredLeafgreen: FireredLeafgreen,
+    @SerializedName("ruby-sapphire")
     val rubySapphire: RubySapphire
 )
