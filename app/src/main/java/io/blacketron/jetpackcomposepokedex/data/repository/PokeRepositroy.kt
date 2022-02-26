@@ -21,7 +21,7 @@ class PokeRepositroy @Inject constructor(
         } catch (e: Exception) {
 
             Timber.e(e)
-            return Resource.Error(massage = "An unknown error occurred")
+            return Resource.Error(message = "An unknown error occurred")
         }
 
         return Resource.Success(response)
@@ -35,7 +35,7 @@ class PokeRepositroy @Inject constructor(
         } catch (e: Exception) {
 
             Timber.e(e)
-            return Resource.Error(massage = "An unknown error occurred")
+            return Resource.Error(message = "An unknown error occurred")
         }
 
         return Resource.Success(response)
