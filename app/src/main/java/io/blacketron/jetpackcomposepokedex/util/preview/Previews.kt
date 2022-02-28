@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import io.blacketron.jetpackcomposepokedex.data.model.Pokedex
-import io.blacketron.jetpackcomposepokedex.screen.pokemon_list_screen.PokedexCard
+import io.blacketron.jetpackcomposepokedex.ui.components.PokedexCard
 import io.blacketron.jetpackcomposepokedex.util.preview.paramater_provider.PokedexEntryListParameterProvider
 
 @Preview("Pokemon Card")
