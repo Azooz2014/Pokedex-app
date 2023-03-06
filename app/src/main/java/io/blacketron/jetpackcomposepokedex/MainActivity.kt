@@ -10,11 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.paging.ExperimentalPagingApi
 import dagger.hilt.android.AndroidEntryPoint
-import io.blacketron.jetpackcomposepokedex.screen.pokemon_detail_screen.PokemonDetailScreen
-import io.blacketron.jetpackcomposepokedex.screen.pokemon_list_screen.PokemonListScreen
-import io.blacketron.jetpackcomposepokedex.ui.theme.JetpackComposePokedexTheme
+import io.blacketron.jetpackcomposepokedex.presentation.screen.pokemon_detail_screen.PokemonDetailScreen
+import io.blacketron.jetpackcomposepokedex.presentation.screen.pokemon_list_screen.PokemonListScreen
+import io.blacketron.jetpackcomposepokedex.presentation.ui.theme.JetpackComposePokedexTheme
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

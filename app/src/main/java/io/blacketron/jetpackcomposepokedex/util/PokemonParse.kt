@@ -3,7 +3,7 @@ package io.blacketron.jetpackcomposepokedex.util
 import androidx.compose.ui.graphics.Color
 import io.blacketron.jetpackcomposepokedex.data.remote.response.Stat
 import io.blacketron.jetpackcomposepokedex.data.remote.response.Type
-import io.blacketron.jetpackcomposepokedex.ui.theme.*
+import io.blacketron.jetpackcomposepokedex.presentation.ui.theme.*
 import java.util.*
 
 fun parseTypeToColor(type: Type): Color {
